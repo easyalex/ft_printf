@@ -1,60 +1,68 @@
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-//int ft_printf(const char *, ...); cspdiuxX
-
-int ft_pars(const char *str)
+void	ft_dispatch(char **str)
 {
-	int index_str;
-	int index_tab;
-	int index_tab_str;
-	int count;
-	char tab_str[10][10];
+	write(1, "A", 1);
+	++*str;
+}
 
-	index_str = 0;
-	index_tab = 0;
-	count = 0;
-	while (str[index_str])
+int ft_pars(char *ptr_format)
+{
+	int			count = 0;
+
+	// printf("%s", ptr_format);
+
+	while (*ptr_format)
 	{
-		index_tab_str = 0;
-		if (str[index_str] == '%' && str[index_str + 1] != '%')
-		{
-			tab_str[index_tab][index_tab_str] = str[index_str];
-			index_str++;
-			index_tab_str++;
-			while ( ((str[index_str] >= '0') && (str[index_str] <= '9')) || 
-				((str[index_str] == ('c') || str[index_str] ==('s') ||str[index_str] == ('p') ||str[index_str] == ('d') 
-					|| str[index_str] == ('i') || str[index_str] == ('u') || str[index_str] == ('x') || str[index_str] == ('X'))) 
-					|| (str[index_str] == ('.') | str[index_str] == ('-') | str[index_str] == ('+')))
-			{
-				tab_str[index_tab][index_tab_str] = str[index_str];
-				index_str++;
-				index_tab_str++;
-			}
-			printf("pars03 index_tab_str[%d] - (%s)\n", index_tab,tab_str[index_tab]);
-			index_tab++;
+		if (*ptr_format != '%')
+		{	
+			write(1, ptr_format, 1);
+			// write(1, "hello", 1);
+			// write(1, &c, 1);
+			// char	*ptr;
+			// ptr = &c;
+			// write(1, ptr, 1);
+			ptr_format++;
 		}
-		index_str++;
+		else
+			ft_dispatch(&ptr_format);
 	}
+
 	return (count);
 }
 
 int ft_printf(const char *format,...)
 {
 	va_list list_of_arg;
-	char	*str;
 	int		res;
 	int		nbr_arg;
 
-	printf("%s\n", format);
+	// char	c = 'D';
 
-	nbr_arg = ft_pars(format); 
+
+	// printf("%s\n", format);
+	char	*ptr_format;
+	// char	*ptr_c;
+
+	// ptr_c = &c;
+
+	// printf("%c\n", *format);
+
+
+
+	ptr_format = (char*)format; // char* juste pour caster
+
+
+	nbr_arg = ft_pars(ptr_format); 
 
 	// printf("Nombre de para envoyes = %d\n", nbr_arg);
 
 	va_start(list_of_arg, format);
 	
-	str = va_arg(list_of_arg, char *);
+	// str = va_arg(list_of_arg, char *);
 
 	va_end(list_of_arg);
 	return (res);
