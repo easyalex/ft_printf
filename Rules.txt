@@ -1,18 +1,18 @@
 %c print a single character
 
-%s print a string of characters
+%s print a string of characters {argument char*}
 
-%d %i print a decimal (base 10) number - a signed int
-%i print an integer in base 10 - a signed int
+%d %i print a decimal (base 10) number - {argument int}
+%i print an integer in base 10 - {argument int}
 
-%u print an unsigned decimal (base 10) number
+%u print an unsigned decimal (base 10) number - {argument unsigned int}
 	- il faut obligatoirement un unsigned sinon bug
 
-%x print a number in hexidecimal (base 16) - The unsigned int argument is converted to unsigned hexadecimal using lowercase abcdef
-%X print a number in hexidecimal (base 16) - The unsigned int argument is converted to unsigned hexadecimal using lowercase ABCDEF
+%x print a number in hexidecimal (base 16) - {argument unsigned int} The unsigned int argument is converted to unsigned hexadecimal using lowercase abcdef
+%X print a number in hexidecimal (base 16) - {argument unsigned int} The unsigned int argument is converted to unsigned hexadecimal using lowercase ABCDEF
 	- c'est deux conversion convertissent un chiffre de base 10 en base 16	
 
-%p A pointer argument is printed in hexadecimal
+%p Pointer address
 
 %% print a percent sign (\% also works)
 
@@ -20,27 +20,39 @@
 Flags : 
 				QUEL QUE SOIT LE FLAG IL DOIT SUIVRE LE '%' (il ne peut pas en avoir apres la lettre)
 
-- MIN FIELD WIDTH -> agrandir l'espace allouer a l'argument
-	chiffre a gauche de la lettre - quelque soit la conversion soustrait la taille du param est rajoute des espace AVANT d'afficher le param si il en reste.
 
-- MIN FIELD WIDTH ON THE LEFT '-' -> cadre l'argument converti à gauche 
-	permet de mettre des espaces apres le chiffres/char/string -> peut importe le nombre de '-'
-	soustrait la taille du param
+- [NUMBER] WIDTH/ESPACES -> TAILLE DE CHAMPS MIN ALLOUE -> definit une taille minimum allouer a l'argument.
+	- si il y a moins de lettre/digit a afficher que l'espace alloue on ajoute autant d'espace DEVANT l'argument
+	- si il y a plus de lettre/digit a afficher on affiche quand meme l'argument en entier (on ne le tronque pas)
 
-- DYNAMIC WIDTH/PRECISION'*' -> ajuste dynamiquement l'espace allouer 
-	fonctionne comme un argument, recupere l'argument (chiffre et/ou '-') et permet d'ajuster WIDTH de maniere dynamique
+	Pourquoi MIN ? Si la valeur de l'argument à afficher fait plus que cette taille, elle est affichée complètement (c'est une largeur minimale d'affichage - le trop est comble par des espaces).
+ 
+- [*] -> DYNAMIC WIDTH/PRECISION '*' -> ajuste dynamiquement l'espace allouer 
+	- fonctionne comme un argument, recupere l'argument (chiffre et/ou '-') et permet d'ajuster la TAILLE de champs de maniere dynamique
+	- doit obligatoirement etre un INT
 
-- '0' complète le début du champ par des 0 au lieu d'espace (exemple du chequier)
-	fonctionne avec d,i,u,x,X
-	ne fonctionne pas avec c, s, p
-	on ne peut pas utiliser le flag '-' avec le flag '0'
 
-- PRECISION '.' = permet de mettre des 0 (est utiliser normalement pour la precision des float). 
-	Ne reduit/precise pas la taille du int
-	Avant '.' on peut mettre MIN FIELD WITH et '-'
+- [-] -> INVERSION DE LA JUSTIFICATION -> Justification de l'argument à gauche si il reste du WIDTH
+	- peut importe le nombre de '-'
 
+
+- [.NUMBER] -> PRECISION  
+	- pour %d,i,x,X donne le minimum de chiffre/digits a afficher
+		- si il y a moins de chiffre/digit a afficher on ajoute autant de 0 restant devant le chiffre 
+		- si il y a plus de chiffre/digit a afficher on affiche le chiffre en entier (on ne le tronque pas)
+	- pour %s limite le nombre de char a afficher
+		- si la string est plus petite que le nombre de char, cela s'arrete au '/0'
+	- pour %c aucune incidence
+
+- [.*] -> PRECISION DYNAMIC
+	- fonctionne comme un argument, recupere l'argument (chiffre et/ou '-') et permet d'ajuster la TAILLE de champs de maniere dynamique
+	- doit obligatoirement etre un INT
+
+- [0] -> bourré avec des zéros lieu d'espaces (exemple du chequier)
+	- fonctionne avec d,i,u,x,X
+	- si il y a moins de chiffre/digit a afficher que le nombre de '0' on ajoute autant d'espace DEVANT l'argument
+	- ne fonctionne pas avec c, s, p
+	- on ne peut pas utiliser le flag '-' avec le flag '0'
 
 
 Pour les espaces comme pour les 0, on deduit la taille du chiffre des espaces/0 demandes. 
-
-
