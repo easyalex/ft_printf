@@ -1,0 +1,46 @@
+%c print a single character
+
+%s print a string of characters
+
+%d %i print a decimal (base 10) number - a signed int
+%i print an integer in base 10 - a signed int
+
+%u print an unsigned decimal (base 10) number
+	- il faut obligatoirement un unsigned sinon bug
+
+%x print a number in hexidecimal (base 16) - The unsigned int argument is converted to unsigned hexadecimal using lowercase abcdef
+%X print a number in hexidecimal (base 16) - The unsigned int argument is converted to unsigned hexadecimal using lowercase ABCDEF
+	- c'est deux conversion convertissent un chiffre de base 10 en base 16	
+
+%p A pointer argument is printed in hexadecimal
+
+%% print a percent sign (\% also works)
+
+
+Flags : 
+				QUEL QUE SOIT LE FLAG IL DOIT SUIVRE LE '%' (il ne peut pas en avoir apres la lettre)
+
+- MIN FIELD WIDTH -> agrandir l'espace allouer a l'argument
+	chiffre a gauche de la lettre - quelque soit la conversion soustrait la taille du param est rajoute des espace AVANT d'afficher le param si il en reste.
+
+- MIN FIELD WIDTH ON THE LEFT '-' -> cadre l'argument converti à gauche 
+	permet de mettre des espaces apres le chiffres/char/string -> peut importe le nombre de '-'
+	soustrait la taille du param
+
+- DYNAMIC WIDTH/PRECISION'*' -> ajuste dynamiquement l'espace allouer 
+	fonctionne comme un argument, recupere l'argument (chiffre et/ou '-') et permet d'ajuster WIDTH de maniere dynamique
+
+- '0' complète le début du champ par des 0 au lieu d'espace (exemple du chequier)
+	fonctionne avec d,i,u,x,X
+	ne fonctionne pas avec c, s, p
+	on ne peut pas utiliser le flag '-' avec le flag '0'
+
+- PRECISION '.' = permet de mettre des 0 (est utiliser normalement pour la precision des float). 
+	Ne reduit/precise pas la taille du int
+	Avant '.' on peut mettre MIN FIELD WITH et '-'
+
+
+
+Pour les espaces comme pour les 0, on deduit la taille du chiffre des espaces/0 demandes. 
+
+
