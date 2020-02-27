@@ -35,8 +35,8 @@
 int main()
 {
 	printf("----- Test 8 ----- \n");
-	ft_printf("Charles = (Bonjour %-0..*d)\n", 50,  123);
-	printf("PRINTF  = (Bonjour %-0..*d)\n", 50,  123);
+	ft_printf("Charles = (Bonjour %-0.0.52*d)\n", 10,  123);
+	printf("PRINTF  = (Bonjour %-0.0.52*d)\n", 10,  123);
 
 	return (0);
 }
