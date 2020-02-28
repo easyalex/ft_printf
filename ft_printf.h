@@ -18,4 +18,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+int		ft_atoi(char ***ptr_format2);
+char	ft_dispatch(char **ptr_format2);
+int 	ft_pars(char *ptr_format2);
+int 	ft_printf(const char *format,...);
+
+
 #endif
