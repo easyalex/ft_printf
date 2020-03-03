@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h.                                       :+:      :+:    :+:   */
+/*   ft_conv_c.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonniss <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "ft_printf.h"
 #include "libft.h"
 
-int 	ft_conv_c(char *ptr_format2, va_list l_args, int *tab);
-int		ft_atoi(char **ptr_format2);
-int 	ft_dispatch(char fmt, char *ptr_format2, va_list l_args, int *tab);
-char	ft_find_letter(char *letter_set, char *str);
-int		ft_analyse_options(char *ptr_format2, char format, int *tab);
-int 	ft_pars(char *ptr_format2, va_list l_args);
+int ft_conv_c(char *ptr_format2, va_list l_args, int *tab)
+{
+
+	if (tab[0] == 1 || tab[0] == 0 || tab[2] > 0 || tab[0] == 1)
+		ft_space
+
+	char to_print;
+
+	to_print = va_arg(l_args, int);
+
+	write(1, &to_print, 1);
+
+	return (1);
+}
 
 
-#endif
+		if (*ptr_format2 == '-')
+			tab[0] = 1;
+		else if (*ptr_format2 == '0')
+			tab[1] = 1;
+		else if (*ptr_format2 > '0' && *ptr_format2 <= '9' && tab[4] == 0)
+			tab[2] = (ft_atoi(&ptr_format2));
+		else if (*ptr_format2 == '*')
+			tab[3] = 1;
+		else if (*ptr_format2 == '.')
+			tab[4] = 1;
+		else if (*ptr_format2 > '0' && *ptr_format2 <= '9' && tab[4] == 1)
+			tab[5] = (ft_atoi(&ptr_format2));
