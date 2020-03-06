@@ -21,12 +21,13 @@
 
 int 	ft_conv_c(va_list l_args, int *tab);
 int 	ft_conv_s(va_list l_args, int *tab);
-int		ft_conv_s_space_manage(va_list l_args, int *tab, int space);
+int		ft_conv_s_space_manage(va_list l_args, int *tab);
 int 	ft_conv_s_precision_manage(va_list l_args, int *tab, int precision);
 void 	ft_conv_s_to_print(int *tab, int space, int len, char *str);
 int		ft_conv_s(va_list l_args, int *tab);
 
 int		ft_conv_di(va_list l_args, int *tab);
+int 	ft_conv_di_precision_manage(va_list l_args,int *tab);
 
 void 	ft_putchar_printf(char c);
 void	ft_putstr_printf(char *s, int limite);

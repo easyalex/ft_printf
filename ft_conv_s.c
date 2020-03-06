@@ -13,13 +13,18 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-int		ft_conv_s_space_manage(va_list l_args, int *tab, int space)
+int		ft_conv_s_space_manage(va_list l_args, int *tab)
 {
+	int space;
+
+	space = 0;
 	if (tab[2] > 0 || tab[3] == 1)
+	{
 		if (tab[2] > 0)
 			space = tab[2];
 		if (tab[3] == 1)
 			space = va_arg(l_args, int);
+	}
 	return (space);
 }
 
@@ -72,7 +77,7 @@ int		ft_conv_s(va_list l_args, int *tab)
 	int 	len;
 	int 	precision;
 
-	space = ft_conv_s_space_manage(l_args, tab, space);
+	space = ft_conv_s_space_manage(l_args, tab);
 	precision = ft_conv_s_precision_manage(l_args, tab, space);
 
 	str = va_arg(l_args, char*); // recherche de la string pour la mettre dans *str

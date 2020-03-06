@@ -63,21 +63,11 @@ char *ft_itoa_printf(int number, int len)
 	return (writen_nbr);
 }
 
-int 	ft_conv_di_precision_manage(va_list l_args, int *tab, int precision)
-{
-	if (tab[4] == 1)
-	{
-		if (tab[5] > 0 || tab[6] == 1)
-			if (tab[5] > 0)
-				precision = tab[5];
-			if (tab[6] == 1)
-				precision = va_arg(l_args, int);
-	}
-	return (precision);
-}
 
-void 	ft_conv_di_to_print(char *str, int *tab, int space, int len, int number)
+void 	ft_conv_di_to_print(char *str, int *tab, int space, int len, int precision, int number)
 {
+	int len_final;
+
 	if (space > len && tab[4] == 0)
 	{
 		if (tab[0] == 1)
@@ -86,6 +76,7 @@ void 	ft_conv_di_to_print(char *str, int *tab, int space, int len, int number)
 			space -= len;
 			while (space--)
 				write(1, " ", 1);
+			return ;
 		}
 		else if (tab[0] == 0)
 		{
@@ -96,23 +87,166 @@ void 	ft_conv_di_to_print(char *str, int *tab, int space, int len, int number)
 			return ;
 		}
 	}
-	// if (space > len)
-	// {	
-	// 	if (tab[0] == 1)
-	// 	{
-	// 		ft_putstr_printf(str, len);
-	// 		space -= len;
-	// 		while (space--)
-	// 			write(1, " ", 1);
-	// 	}
-	// 	else
-	// 	{
-	// 		space -= len;
-	// 		while (space--)
-	// 			write(1, " ", 1);
-	// 		ft_putstr_printf(str, len);
-	// 	}
+	// if (space < len && tab[4] == 0 && tab[1] == 0)
+	// {
+	// 	ft_putstr_printf(str, len);
+	// 	return ;
 	// }
+	
+	len_final = 0;
+	if (precision > len)
+		len_final = precision;
+	if (precision < len)
+		len_final = len;
+
+	// printf("Len_final 	= [%d]\n", len_final);
+
+	if ((space <= len_final && len_final >= 0) && (tab[4] == 1 || tab[1] == 1 || tab[0] == 1))
+	{
+		if (number < 0)
+		{
+			write(1, "-", 1);
+			precision -= len;
+			while (precision > 0)
+			{
+				write(1, "0", 1);
+				precision--;
+			}
+			ft_putstr_printf((str + 1), len);
+			return ; 
+		}
+		if (number > 0)
+		{
+			precision -= len;
+			// printf("\nPrecision 		= [%d]\n", space);
+			while (precision > 0)
+			{
+				write(1, "0", 1);
+				precision--;
+			}
+			ft_putstr_printf((str), len);
+			return ; 
+		}
+	}
+	else if (space > len_final && (tab[4] == 1 || tab[1] == 1 || tab[0] == 1))
+	{
+		if (number > 0)
+		{
+			if (tab[0] == 0)
+			{
+				space -= len_final;
+				// printf("\nSpace 		= [%d]\n", space);
+				while (space--)
+					write(1, " ", 1);
+				precision -= len;
+				// printf("\nPrecision 		= [%d]\n", space);
+
+				while (precision > 0)
+				{
+					write(1, "0", 1);
+					precision--;
+				}
+				ft_putstr_printf(str, len);
+				return ; 
+			}
+			if (tab[0] == 1)
+			{
+				precision -= len;
+				while (precision > 0)
+				{
+					write(1, "0", 1);
+					precision--;
+				}
+				ft_putstr_printf(str, len);
+				space -= len_final;
+				while (space--)
+					write(1, " ", 1);
+				return ; 
+			}
+		}
+		if (number < 0)
+		{
+			if (tab[0] == 0)
+			{
+				space -= len_final;
+				while (space--)
+					write(1, " ", 1);
+				precision -= len;
+				write(1, "-", 1);
+				while (precision > 0)
+				{
+					write(1, "0", 1);
+					precision--;
+				}
+				ft_putstr_printf(str, len);
+				return ; 
+			}
+			if (tab[0] == 1)
+			{
+				precision -= len;
+				write(1, "-", 1);
+				while (precision > 0)
+				{
+					write(1, "0", 1);
+					precision--;
+				}
+				ft_putstr_printf(str, len);
+				space -= len_final;
+				while (space--)
+					write(1, " ", 1);
+				return ; 
+			}
+		}
+	}
+}
+int		ft_conv_di_space_manage(va_list l_args, int *tab)
+{
+	int space;
+
+	space = 0;
+	if ((tab[2] > 0 || tab[3] == 1) && (tab[1] == 0 && tab[4] == 0))
+	{
+		if (tab[2] > 0)
+			space = tab[2];
+		if (tab[3] == 1)
+			space = va_arg(l_args, int);
+		return (space);
+	}
+	if ((tab[2] > 0 || tab[3] == 1) && (tab[1] == 1 || tab[1] == 0) && tab[4] == 1 )
+	{
+		if (tab[2] > 0)
+			space = tab[2];
+		if (tab[3] == 1)
+			space = va_arg(l_args, int);
+		return (space);
+	}
+	return (space);
+}
+
+int 	ft_conv_di_precision_manage(va_list l_args, int *tab)
+{
+	int precision; 
+
+	precision = 0; 
+	
+	if (tab[4] == 1)
+	{
+		if (tab[5] > 0 || tab[6] == 1)
+			if (tab[5] > 0)
+				precision = tab[5];
+			if (tab[6] == 1)
+				precision = va_arg(l_args, int);
+		return (precision); 
+	}
+
+	if ((tab[2] > 0 || tab[3] == 1) && tab[1] == 1)
+	{
+		if (tab[2] > 0)
+			precision = tab[2];
+		if (tab[3] == 1)
+			precision = va_arg(l_args, int);
+	}
+	return (precision);
 }
 
 int		ft_conv_di(va_list l_args, int *tab)
@@ -123,15 +257,16 @@ int		ft_conv_di(va_list l_args, int *tab)
 	int 	precision;
 	int 	number;
 
-	space 		= ft_conv_s_space_manage(l_args, tab, space);
-	precision 	= ft_conv_di_precision_manage(l_args, tab, space);
+	space 		= ft_conv_di_space_manage(l_args, tab);
+	precision 	= ft_conv_di_precision_manage(l_args, tab);
 	number 		= va_arg(l_args, int);
 	len_nbr 	= ft_len_number(number);
 	str_number 	= ft_itoa_printf(number, len_nbr);
 
 	// precision -= len_nbr;
-	// if (number < 0)
-	// 	precision++;
+	if (number < 0)
+		precision++;
+
 	
 	// printf("\nSpace 		= [%d]\n", space);
 	// printf("Precision 	= [%d]\n", precision);
@@ -139,7 +274,8 @@ int		ft_conv_di(va_list l_args, int *tab)
 	// printf("Len_Number 	= [%d]\n", len_nbr);
 	// printf("Str_number 	= [%s]\n", str_number);
 
-	ft_conv_di_to_print(str_number, tab, space, len_nbr, number);
+	ft_conv_di_to_print(str_number, tab, space, len_nbr, precision, number);
+	free(str_number);
 
 	return (0);
 }

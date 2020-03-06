@@ -49,9 +49,13 @@ int main()
 	// printf("----- Test 12 ----- = 'Bonjour %%7#c' == Undifined behavior avec -Werror\n");
 	// // printf("PRINTF = (Bonjour %7#c)\n", 'A');
 
-	printf("\n\n----- Test lettre %%d ----- = a number 123\n");
-	printf("----- Test 1 ----- = 'Bonjour [%%d]'		== Affiche simplement le chiffre\n");
-	printf("PRINTF = (Bonjour %.d)\n", 123);
+	// printf("\n\n----- Test lettre %%d ----- = a number 123\n");
+	// printf("----- Test 1 ----- = 'Bonjour [%%d]'		== Affiche simplement le chiffre\n");
+	// printf("PRINTF = (Bonjour %5.10d)\n", 123);
+	// printf("THEFONCTION = (Bonjour %-07d)\n", 123);
+	printf("THEFONCTION = (Bonjour %-07.0d)\n", 123);
+	
+
 	// printf("----- Test 2 ----- = 'Bonjour [%%7d]' 		== Met 7 'espace' avant le chiffre\n");
 	// printf("PRINTF = (Bonjour %7d)\n", 123);
 	// printf("----- Test 3 ----- = 'Bonjour [%%-7d]'		== Met 7 'espace' apres le chiffre grace au '-'\n");
