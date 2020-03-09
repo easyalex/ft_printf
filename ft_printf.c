@@ -39,8 +39,8 @@ int 	ft_dispatch(char fmt, va_list l_args, int *tab)
 		return (ft_conv_s(l_args, tab));
 	else if (fmt == 'd' || fmt == 'i')
 		return (ft_conv_di(l_args, tab));
-	// else if (fmt == 'u')
-	// 	return (ft_conv_u(l_args, tab));
+	else if (fmt == 'u')
+		return (ft_conv_u(l_args, tab));
 	// else if (fmt == 'x' || fmt == 'X')
 	// 	return (ft_conv_xX(l_args, tab));
 	// else if (fmt == 'p')
@@ -168,66 +168,87 @@ int ft_printf(const char *format,...)
 int main ()
 {
 	
+	printf("\n\n----- Test lettre %%u ----- = a unsigned int\n");
+	printf("----- Test 1 ----- = 'Bonjour [%%u]' 123		== Affiche simplement le chiffre\n");
+	printf("OK - THEFONCTION = (Bonjour %u)\n", 42949672);
+	ft_printf("OK - THEABONNISS = (Bonjour %u)\n", 42949672);
+	printf("----- Test 2 ----- = 'Bonjour [%%u]' 123	== Bug -> il faut un unsigned\n");
+	printf("OK - THEFONCTION = (Bonjour %u)\n", 42949672);
+	ft_printf("OK - THEABONNISS = (Bonjour %u)\n", 42949672);
+	printf("----- Test 3 ----- = 'Bonjour [%%100u]' 123	== Espace a gauchedu chiffre (soustrayant les 3 chiffres)\n");
+	printf("OK - THEFONCTION = (Bonjour %100u)\n", 42949672);
+	ft_printf("OK - THEABONNISS = (Bonjour %100u)\n", 42949672);
+	printf("----- Test 3 ----- = 'Bonjour [%%-100u]' 123	== Espace a droite du chiffre (soustrayant les 3 chiffres)\n");
+	printf("OK - THEFONCTION = (Bonjour %-100u)\n", 42949672);
+	ft_printf("OK - THEABONNISS = (Bonjour %-100u)\n", 42949672);
+
+
+
+
+
 	// printf("\n\n----- Test lettre %%d ----- = a number 123\n");
 	// printf("----- Test 1 ----- = 'Bonjour [%%d]'		== Affiche simplement le chiffre\n");
-	printf("OK - THEFONCTION = (Bonjour %-10.*d)\n",2 , 5214123);
-	ft_printf("OK - THEABONNISS = (Bonjour %-10.*d)\n\n",2 , 5214123);
+	// printf("OK - THEFONCTION = (Bonjour %-10.*d)\n",2 , 5214123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %-10.*d)\n\n",2 , 5214123);
+	
+	// printf("OK - THEFONCTION = (Bonjour %d)\n", 5214123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %d)\n\n", 5214123);
 
-	printf("OK - THEFONCTION = (Bonjour %010.*d)\n",2 , 5214123);
-	ft_printf("OK - THEABONNISS = (Bonjour %010.*d)\n\n",2 , 5214123);
+	// printf("OK - THEFONCTION = (Bonjour %010.*d)\n",2 , 5214123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %010.*d)\n\n",2 , 5214123);
 
-	printf("OK - THEFONCTION = (Bonjour %10.*d)\n",2 , 5214123);
-	ft_printf("OK - THEABONNISS = (Bonjour %10.*d)\n\n",2 , 5214123);
+	// printf("OK - THEFONCTION = (Bonjour %10.*d)\n",2 , 5214123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %10.*d)\n\n",2 , 5214123);
 
-	printf("OK - THEFONCTION = (Bonjour %20.15d)\n", 5214123);
-	ft_printf("OK - THEABONNISS = (Bonjour %20.15d)\n\n", 5214123);
+	// printf("OK - THEFONCTION = (Bonjour %20.15d)\n", 5214123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %20.15d)\n\n", 5214123);
 
 	// printf("----- Test 2 ----- = 'Bonjour [%%7d]' 		== Met 7 'espace' avant le chiffre\n");
-	printf("OK - THEFONCTION = (Bonjour %7d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %7d)\n\n", 123);
+	// printf("OK - THEFONCTION = (Bonjour %7d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %7d)\n\n", 123);
 	
-	// printf("----- Test 3 ----- = 'Bonjour [%%-7d]'		== Met 7 'espace' apres le chiffre grace au '-'\n");
-	printf("OK - THEFONCTION = (Bonjour %-7d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %-7d)\n\n", 123);
+	// // printf("----- Test 3 ----- = 'Bonjour [%%-7d]'		== Met 7 'espace' apres le chiffre grace au '-'\n");
+	// printf("OK - THEFONCTION = (Bonjour %-7d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %-7d)\n\n", 123);
 	
-	// printf("----- Test 3 bis ----- = 'Bonjour [%%-d]'	== Ne fait rien de plus qu'afficher le chiffre\n");
-	printf("OK - THEFONCTION = (Bonjour %-d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %-d)\n\n", 123);
+	// // printf("----- Test 3 bis ----- = 'Bonjour [%%-d]'	== Ne fait rien de plus qu'afficher le chiffre\n");
+	// printf("OK - THEFONCTION = (Bonjour %-d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %-d)\n\n", 123);
 	
-	// printf("----- Test 5 ----- = 'Bonjour [%%7.5d]' 		== Tient compte du 7 pour les espaces avant le chiffre et met 5 '0' -> le chiffre et les 0 on la priorite et reduise les espaces\n");
-	printf("OK - THEFONCTION = (Bonjour %7.5d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %7.5d)\n\n", 123);
+	// // printf("----- Test 5 ----- = 'Bonjour [%%7.5d]' 		== Tient compte du 7 pour les espaces avant le chiffre et met 5 '0' -> le chiffre et les 0 on la priorite et reduise les espaces\n");
+	// printf("OK - THEFONCTION = (Bonjour %7.5d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %7.5d)\n\n", 123);
 	
-	// printf("----- Test 5bis ----- = 'Bonjour [%%.5d]' 	== C'est le '.' qui permet de mettre 5 '0' devant le chiffre moins les chiffres de %%d\n");
-	printf("OK - THEFONCTION = (Bonjour %.5d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %.5d)\n\n", 123);
+	// // printf("----- Test 5bis ----- = 'Bonjour [%%.5d]' 	== C'est le '.' qui permet de mettre 5 '0' devant le chiffre moins les chiffres de %%d\n");
+	// printf("OK - THEFONCTION = (Bonjour %.5d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %.5d)\n\n", 123);
 	
-	// printf("----- Test 6 ----- = 'Bonjour [%%--7d]'		== Peut importe le nbr de '-' met des espace apres le chiffre\n");
-	printf("OK - THEFONCTION = (Bonjour %--7d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %--7d)\n\n", 123);
+	// // printf("----- Test 6 ----- = 'Bonjour [%%--7d]'		== Peut importe le nbr de '-' met des espace apres le chiffre\n");
+	// printf("OK - THEFONCTION = (Bonjour %--7d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %--7d)\n\n", 123);
 	
-	// printf("----- Test 8 ----- = 'Bonjour [%%07d]'		== Remplis de '0' en soustrayant le nombre de chiffre a afficher\n");
-	printf("THEFONCTION = (Bonjour %07d)\n", 123);
-	ft_printf("THEABONNISS = (Bonjour %07d)\n\n", 123);
+	// // printf("----- Test 8 ----- = 'Bonjour [%%07d]'		== Remplis de '0' en soustrayant le nombre de chiffre a afficher\n");
+	// printf("THEFONCTION = (Bonjour %07d)\n", 123);
+	// ft_printf("THEABONNISS = (Bonjour %07d)\n\n", 123);
 	
-	printf("THEFONCTION = (Bonjour %-07.0d)\n", 123);
-	ft_printf("THEABONNISS = (Bonjour %-07.0d)\n\n", 123);
+	// printf("THEFONCTION = (Bonjour %-07.0d)\n", 123);
+	// ft_printf("THEABONNISS = (Bonjour %-07.0d)\n\n", 123);
 	
-	printf("THEFONCTION = (Bonjour %-*.*d)\n", 10, 10, 123);
-	ft_printf("THEABONNISS = (Bonjour %-*.*d)\n\n", 10, 10, 123);
+	// printf("THEFONCTION = (Bonjour %-*.*d)\n", 10, 10, 123);
+	// ft_printf("THEABONNISS = (Bonjour %-*.*d)\n\n", 10, 10, 123);
 	
-	// printf("----- Test 8 ----- = 'Bonjour [%%70d]'		== Met des 70 espace avant d'afficher le nombre\n");
-	printf("OK - THEFONCTION = (Bonjour %70d)\n", 123);
-	ft_printf("OK - THEABONNISS = (Bonjour %70d)\n\n", 123);
-	// printf("----- Test 11 ----- = 'Bonjour [%%*d]'		== * Prend le chiffre en parametre et remplace '*'\n");
-	printf("OK - THEFONCTION = (Bonjour %*d)\n", 10, 456);
-	ft_printf("OK - THEABONNISS = (Bonjour %*d)\n\n", 10, 456);
+	// // printf("----- Test 8 ----- = 'Bonjour [%%70d]'		== Met des 70 espace avant d'afficher le nombre\n");
+	// printf("OK - THEFONCTION = (Bonjour %70d)\n", 123);
+	// ft_printf("OK - THEABONNISS = (Bonjour %70d)\n\n", 123);
+	// // printf("----- Test 11 ----- = 'Bonjour [%%*d]'		== * Prend le chiffre en parametre et remplace '*'\n");
+	// printf("OK - THEFONCTION = (Bonjour %*d)\n", 10, 456);
+	// ft_printf("OK - THEABONNISS = (Bonjour %*d)\n\n", 10, 456);
 	
-	printf("OK - THEFONCTION = (Bonjour %0*d)\n", 10, 456);
-	ft_printf("OK - THEABONNISS = (Bonjour %0*d)\n\n", 10, 456);
+	// printf("OK - THEFONCTION = (Bonjour %0*d)\n", 10, 456);
+	// ft_printf("OK - THEABONNISS = (Bonjour %0*d)\n\n", 10, 456);
 	
-	printf("OK - THEFONCTION = (Bonjour %0*.10d)\n", 10, 456);
-	ft_printf("OK - THEABONNISS = (Bonjour %0*.10d)\n\n", 10, 456);
+	// printf("OK - THEFONCTION = (Bonjour %0*.10d)\n", 10, 456);
+	// ft_printf("OK - THEABONNISS = (Bonjour %0*.10d)\n\n", 10, 456);
 
 
 

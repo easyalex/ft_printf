@@ -29,6 +29,8 @@ int		ft_conv_s(va_list l_args, int *tab);
 int		ft_conv_di(va_list l_args, int *tab);
 int 	ft_conv_di_precision_manage(va_list l_args,int *tab);
 
+int		ft_conv_u(va_list l_args, int *tab);
+
 void 	ft_putchar_printf(char c);
 void	ft_putstr_printf(char *s, int limite);
 int		ft_strlen_printf(char *s);

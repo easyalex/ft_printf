@@ -53,7 +53,7 @@ int main()
 	// printf("----- Test 1 ----- = 'Bonjour [%%d]'		== Affiche simplement le chiffre\n");
 	// printf("PRINTF = (Bonjour %5.10d)\n", 123);
 	// printf("THEFONCTION = (Bonjour %-07d)\n", 123);
-	printf("THEFONCTION = (Bonjour %-07.0d)\n", 123);
+	// printf("THEFONCTION = (Bonjour %-07.0d)\n", 123);
 	
 
 	// printf("----- Test 2 ----- = 'Bonjour [%%7d]' 		== Met 7 'espace' avant le chiffre\n");
@@ -93,15 +93,15 @@ int main()
 	// printf("----- Test 11 ----- = 'Bonjour [%%*d]'		== * Prend le chiffre en parametre et remplace '*'\n");
 	// printf("PRINTF = (Bonjour %*d)\n", 10, 456);
 
-	// printf("\n\n----- Test lettre %%u ----- = a unsigned int\n");
-	// printf("----- Test 1 ----- = 'Bonjour [%%u]' 123		== Affiche simplement le chiffre\n");
-	// printf("PRINTF = (Bonjour %u)\n", 123);
-	// printf("----- Test 2 ----- = 'Bonjour [%%u]' -123	== Bug -> il faut un unsigned\n");
-	// printf("PRINTF = (Bonjour %u)\n", -123);
-	// printf("----- Test 3 ----- = 'Bonjour [%%100u]' 123	== Espace a gauchedu chiffre (soustrayant les 3 chiffres)\n");
-	// printf("PRINTF = (Bonjour %100u)\n", 123);
-	// printf("----- Test 3 ----- = 'Bonjour [%%-100u]' 123	== Espace a droite du chiffre (soustrayant les 3 chiffres)\n");
-	// printf("PRINTF = (Bonjour %-100u)\n", 123);
+	printf("\n\n----- Test lettre %%u ----- = a unsigned int\n");
+	printf("----- Test 1 ----- = 'Bonjour [%%u]' 123		== Affiche simplement le chiffre\n");
+	printf("PRINTF = (Bonjour %u)\n", 429496729);
+	printf("----- Test 2 ----- = 'Bonjour [%%u]' -123	== Bug -> il faut un unsigned\n");
+	printf("PRINTF = (Bonjour %u)\n", 429496729);
+	printf("----- Test 3 ----- = 'Bonjour [%%100u]' 123	== Espace a gauchedu chiffre (soustrayant les 3 chiffres)\n");
+	printf("PRINTF = (Bonjour %100u)\n", 429496729);
+	printf("----- Test 3 ----- = 'Bonjour [%%-100u]' 123	== Espace a droite du chiffre (soustrayant les 3 chiffres)\n");
+	printf("PRINTF = (Bonjour %-100u)\n", 429496729);
 
 
 	// printf("\n\n----- Test lettre %%i ----- = print an integer 123\n");
